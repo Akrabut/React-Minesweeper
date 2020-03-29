@@ -1,10 +1,9 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-// import { someReducer } from './reducers/someReducer'
+import { createStore, combineReducers } from 'redux'
+import boardSizeReducer from './reducers/BoardSize'
 
-// const reducer = combineReducers({
-//   some: someReducer,
-//   someOther: someOtherReducer,
-// })
+const reducer = combineReducers({
+  size: boardSizeReducer,
+})
 
-// export const store = createStore(reducer, applyMiddleware(thunk))
+const store = createStore(reducer)
+export default store
