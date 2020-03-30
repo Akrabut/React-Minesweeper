@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, Transition, Icon } from 'semantic-ui-react'
 
-const Tile = ({ x, y, value }) => {
+const Tile = ({ x, y, value, isFlagged }) => {
   const [revealed, setRevealed] = useState(false)
+  const [flagged, setFlagged] = useState(false)
+
+  useEffect(() => {
+    setFlagged(isFlagged)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const displayProperValue = () => {
     if (value === 'M') return <Icon fitted={true} size='small' name='fire' />
@@ -10,19 +16,24 @@ const Tile = ({ x, y, value }) => {
     return value
   }
 
-// asterisk=bomb flag=font awesome flag/flag
   if (revealed) {
     return (
       <Transition visible transitionOnMount={true} duration={1000}>
-      <Card fluid>
-        {displayProperValue()}
-      </Card>
+        <Card fluid>
+          {displayProperValue()}
+        </Card>
       </Transition>
+    )
+  } else if (flagged) {
+    return (
+      <Card raised fluid style={{ backgroundColor: 'grey' }} onClick={() => setRevealed(true)}>
+        <Icon fitted={true} size='small' name='font awesome flag' />
+      </Card>
     )
   } else {
     return (
-      <Card raised fluid style={{backgroundColor:'grey'}} onClick={() => setRevealed(true)}>
-      <p style={{color: 'grey'}}>?</p>
+      <Card raised fluid style={{ backgroundColor: 'grey' }} onClick={() => setRevealed(true)}>
+        <p style={{ color: 'grey' }}>?</p>
       </Card>
     )
   }

@@ -3,10 +3,12 @@ function getRandomInt(max) {
 }
 
 const placeMines = (board, numOfMines) => {
-  while (numOfMines > 0) {
+  while (numOfMines !== 0) {
     const randX = getRandomInt(board.length - 1)
     const randY = getRandomInt(board[0].length - 1)
+    console.log(randX, randY);
     if (!board[randX][randY]) {
+      console.log(numOfMines);
       // M stands for Mine
       board[randX][randY] = 'M'
       numOfMines--
@@ -23,7 +25,7 @@ const countSurroundingMines = (board, i, j) => {
   })
   return (
     surrMines > 0
-      ? surrMines // a number symbolizes the amount of surrounding mines
+      ? surrMines // a number indicates the amount of surrounding mines
       : 'E' // E stands for empty
   )
 }
@@ -47,16 +49,20 @@ const generateBoard = (rows, columns, numOfMines) => {
   return board
 }
 
+const calcNumOfMines = (rows, cols) => Math.floor(rows * cols) / 4
+
+const defaultMines = calcNumOfMines(30, 30)
+
 const defaultState = {
   rows: 30,
   columns: 30,
-  numOfMines: Math.floor((30 * 30) / 4),
-  remainingFlags: Math.floor((30 * 30) / 4),
-  board: generateBoard(30, 30),
+  numOfMines: defaultMines,
+  remainingFlags: defaultMines,
+  board: generateBoard(30, 30, defaultMines),
+  setFlags: new Set(),
 }
 
 const gameStateReducer = (state = defaultState, action) => {
-  console.log(state);
   switch (action.type) {
     // when user plays
     case 'SET_BOARD':
@@ -68,7 +74,8 @@ const gameStateReducer = (state = defaultState, action) => {
     case 'SET_FLAGS':
       return {
         ...state,
-        remainingFlags: action.data.remainingFlags,
+        remainingFlags: state.remainingFlags - 1,
+        setFlags: state.setFlags.add(action.data.coord),
       }
     default:
       return state
