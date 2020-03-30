@@ -18,7 +18,7 @@ const Board = props => {
   // }
 
   const generateTable = () => {
-    // const table = initializeGrid()
+    /// const table = initializeGrid()
     return props.gameState.board.map((row, i) => {
       return (
         <Table.Row key={`table-row-${i}`}>
