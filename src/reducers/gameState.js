@@ -82,11 +82,12 @@ const gameStateReducer = (state = defaultState, action) => {
       }
     // when user plays
     case 'MAKE_PLAY':
-      const set = new Set()
-      action.data.revealedTiles.forEach(tile => set.add(tile))
+      console.log(action.data);
+      const newReveals = new Set()
+      action.data.revealedTiles.forEach(tile => newReveals.add(tile))
       return {
         ...state,
-        board: action.data.board,
+        revealedTiles: newReveals,
       }
     // when user places flag
     case 'SET_FLAG':
