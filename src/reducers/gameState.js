@@ -13,7 +13,6 @@ const placeMines = (board, numOfMines) => {
       numOfMines--
     }
   }
-  console.log(board);
 }
 
 const countSurroundingMines = (board, i, j) => {
@@ -48,20 +47,22 @@ const generateBoard = (rows, columns, numOfMines) => {
   return board
 }
 
-const calcNumOfMines = (rows, cols) => Math.floor(rows * cols) / 4
+const calcNumOfMines = (rows, cols) => Math.floor((rows * cols) / 6)
 
-const defaultMines = calcNumOfMines(30, 30)
+const DEFAULT = 20
+
+const defaultMines = calcNumOfMines(DEFAULT, DEFAULT)
 
 // this state seems a bit too big, but board must be aware of the number of mines for it to be initialized
 // in turn, remaining flags is dependent on reamaining mines, and remaining mines is dependent on number of mines
 // while it could make sense to separate some of these attributes into a different reducer, i feel like it would heavily over complicate things
 const defaultState = {
-  rows: 30,
-  columns: 30,
+  rows: DEFAULT,
+  columns: DEFAULT,
   numOfMines: defaultMines,
   remainingFlags: defaultMines,
   remainingMines: defaultMines,
-  board: generateBoard(30, 30, defaultMines),
+  board: generateBoard(DEFAULT, DEFAULT, defaultMines),
   setFlags: new Set(),
   revealedTiles: new Set(),
 }
@@ -82,9 +83,8 @@ const gameStateReducer = (state = defaultState, action) => {
       }
     // when user plays
     case 'MAKE_PLAY':
-      console.log(action.data);
-      const newReveals = new Set()
-      action.data.revealedTiles.forEach(tile => newReveals.add(tile))
+      const newReveals = new Set(state.revealedTiles)
+      action.data.revealedTiles.forEach(tile => newReveals.add(JSON.stringify(tile)))
       return {
         ...state,
         revealedTiles: newReveals,

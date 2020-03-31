@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Transition, Icon } from 'semantic-ui-react'
 
-const Tile = ({ x, y, value, isFlagged, isRevealed }) => {
+const Tile = ({ x, y, value, isFlagged, isRevealed, board, makePlay, setFlag }) => {
   const [revealed, setRevealed] = useState(false)
   const [flagged, setFlagged] = useState(false)
 
@@ -11,7 +11,12 @@ const Tile = ({ x, y, value, isFlagged, isRevealed }) => {
     setFlagged(isFlagged)
     setRevealed(isRevealed)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isRevealed, isFlagged])
+
+  const handleLeftClick = () => {
+    setRevealed(true)
+    makePlay([x, y], value, board)
+  }
 
   const displayProperValue = () => {
     if (value === 'M') return <Icon fitted={true} size='small' name='fire' />
@@ -35,7 +40,7 @@ const Tile = ({ x, y, value, isFlagged, isRevealed }) => {
     )
   } else {
     return (
-      <Card raised fluid style={{ backgroundColor: 'grey' }} onClick={() => setRevealed(true)}>
+      <Card raised fluid style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}>
         <p style={{ color: 'grey' }}>?</p>
       </Card>
     )
