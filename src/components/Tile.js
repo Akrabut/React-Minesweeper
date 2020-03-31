@@ -9,7 +9,7 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
   useEffect(() => {
     setFlagged(isFlagged)
     setRevealed(isRevealed)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRevealed, isFlagged])
 
   const setStyle = () => {
@@ -29,7 +29,8 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
 
   const handleLeftClick = () => {
     setRevealed(true)
-    if (value === 'M') return endGame()
+    // pass setrevealed to flip the tile back after the game restarts
+    if (value === 'M') return endGame(setRevealed)
     makePlay([x, y], value)
   }
 
@@ -42,9 +43,9 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
   if (revealed) {
     return (
       // <Transition visible transitionOnMount={true} duration={1000}>
-        <Card fluid style={setStyle()}>
-          {displayProperValue()}
-        </Card>
+      <Card fluid style={setStyle()}>
+        {displayProperValue()}
+      </Card>
       // </Transition>
     )
   } else if (flagged) {

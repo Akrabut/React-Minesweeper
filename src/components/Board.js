@@ -13,8 +13,10 @@ const Board = props => {
     props.setFlag(coord, value)
   }
 
-  const endGame = () => {
+  const endGame = setRevealed => {
     alert('You have been exploded!')
+    // use setrevealed to flip the tile back after the game restarts
+    setRevealed(false)
     props.initGame(20, 20)
   }
 
