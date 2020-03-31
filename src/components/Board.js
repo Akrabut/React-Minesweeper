@@ -5,6 +5,14 @@ import Tile from './Tile'
 import { makePlay, setFlag } from '../actions/gameState'
 
 const Board = props => {
+  const handlePlay = (coord, value) => {
+    props.makePlay(coord, value, props.gameState.board)
+  }
+
+  const handleFlag = (coord, value) => {
+    props.setFlag(coord, value)
+  }
+
   const generateTable = () => {
     return props.gameState.board.map((row, i) => {
       return (
@@ -16,9 +24,8 @@ const Board = props => {
                   value={props.gameState.board[i][j]}
                   isFlagged={props.gameState.setFlags.has(JSON.stringify([i, j]))}
                   isRevealed={props.gameState.revealedTiles.has(JSON.stringify([i, j]))}
-                  board={props.gameState.board}
-                  makePlay={props.makePlay}
-                  setFlag={props.setFlag}
+                  makePlay={handlePlay}
+                  setFlag={handleFlag}
                 />
               </Table.Cell>
             )

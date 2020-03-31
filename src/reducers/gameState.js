@@ -49,7 +49,7 @@ const generateBoard = (rows, columns, numOfMines) => {
 
 const calcNumOfMines = (rows, cols) => Math.floor((rows * cols) / 6)
 
-const DEFAULT = 20
+const DEFAULT = 30
 
 const defaultMines = calcNumOfMines(DEFAULT, DEFAULT)
 

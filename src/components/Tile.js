@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Transition, Icon } from 'semantic-ui-react'
 
-const Tile = ({ x, y, value, isFlagged, isRevealed, board, makePlay, setFlag }) => {
+const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag }) => {
   const [revealed, setRevealed] = useState(false)
   const [flagged, setFlagged] = useState(false)
 
@@ -15,7 +15,7 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, board, makePlay, setFlag }) 
 
   const handleLeftClick = () => {
     setRevealed(true)
-    makePlay([x, y], value, board)
+    makePlay([x, y], value)
   }
 
   const displayProperValue = () => {

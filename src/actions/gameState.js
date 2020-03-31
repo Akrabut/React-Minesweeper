@@ -21,11 +21,13 @@ const dfs = (clickedTile, board, newReveals, visited) => {
   const potentialCoords = [[i - 1, j - 1], [i - 1, j], [i, j - 1], [i + 1, j], [i, j + 1], [i + 1, j + 1]]
   potentialCoords.forEach(potentialEmpty => {
     if (visited.has(JSON.stringify(potentialEmpty))) return
-    if (isValidCoord(potentialEmpty, board) && board[potentialEmpty[0]][potentialEmpty[1]] === 'E'){
+    // if cell is empty, recursively reveal all adjacent empty cells
+    if (isValidCoord(potentialEmpty, board) && board[potentialEmpty[0]][potentialEmpty[1]] === 'E') {
       dfs(potentialEmpty, board, newReveals, visited)
+      // if cell is a number, reveal just that number
     } else if (isValidCoord(potentialEmpty, board) && Number.isInteger(board[potentialEmpty[0]][potentialEmpty[1]])) {
-      newReveals.push(clickedTile)
-      visited.add(JSON.stringify(clickedTile))
+      newReveals.push(potentialEmpty)
+      visited.add(JSON.stringify(potentialEmpty))
     }
   })
 }
@@ -37,11 +39,10 @@ const revealAdjacentEmptyTiles = (clickedTile, board) => {
   return newReveals
 }
 
-export const makePlay = (clickedTile, symbol, board) => {
+export const makePlay = (clickedTile, value, board) => {
   // clickedTile is of format [i, j]
-  // symbol is simply the tile value
-  // case where symbol === M is handled in gameOverReducer
-  if (symbol === 'E') {
+  // case where value === M is handled in gameOverReducer
+  if (value === 'E') {
     return {
       type: 'MAKE_PLAY',
       data: {
@@ -60,12 +61,12 @@ export const makePlay = (clickedTile, symbol, board) => {
 
 }
 
-export const setFlag = (flaggedTile, isMine) => {
+export const setFlag = (flaggedTile, value) => {
   // flaggedTile is of format [i, j]
   // isMine indicates whether flagged tile has mine underneath
   return {
     type: 'SET_FLAG',
-    mineFlagged: isMine,
+    mineFlagged: value === 'M',
     coord: flaggedTile,
   }
 }
