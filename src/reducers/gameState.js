@@ -49,7 +49,7 @@ const generateBoard = (rows, columns, numOfMines) => {
 
 const calcNumOfMines = (rows, cols) => Math.floor((rows * cols) / 6)
 
-const DEFAULT = 30
+const DEFAULT = 20
 
 const defaultMines = calcNumOfMines(DEFAULT, DEFAULT)
 
@@ -69,6 +69,14 @@ const defaultState = {
 
 const gameStateReducer = (state = defaultState, action) => {
   switch (action.type) {
+    // when user plays
+    case 'MAKE_PLAY':
+      const newReveals = new Set(state.revealedTiles)
+      action.data.revealedTiles.forEach(tile => newReveals.add(JSON.stringify(tile)))
+      return {
+        ...state,
+        revealedTiles: newReveals,
+      }
     // when user sets board to a different size
     case 'INIT_GAME':
       const mines = calcNumOfMines(action.data.rows, action.data.columns)
@@ -80,15 +88,7 @@ const gameStateReducer = (state = defaultState, action) => {
         remainingFlags: mines,
         remainingMines: mines,
         board: generateBoard(action.data.rows, action.data.columns, mines)
-      }
-    // when user plays
-    case 'MAKE_PLAY':
-      const newReveals = new Set(state.revealedTiles)
-      action.data.revealedTiles.forEach(tile => newReveals.add(JSON.stringify(tile)))
-      return {
-        ...state,
-        revealedTiles: newReveals,
-      }
+      } 
     // when user places flag
     case 'SET_FLAG':
       // if user placed flag on a mine

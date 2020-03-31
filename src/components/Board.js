@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'semantic-ui-react'
 import Tile from './Tile'
-import { makePlay, setFlag } from '../actions/gameState'
+import { makePlay, setFlag, initGame} from '../actions/gameState'
 
 const Board = props => {
   const handlePlay = (coord, value) => {
@@ -11,6 +11,11 @@ const Board = props => {
 
   const handleFlag = (coord, value) => {
     props.setFlag(coord, value)
+  }
+
+  const endGame = () => {
+    alert('You have been exploded!')
+    props.initGame(20, 20)
   }
 
   const generateTable = () => {
@@ -26,6 +31,7 @@ const Board = props => {
                   isRevealed={props.gameState.revealedTiles.has(JSON.stringify([i, j]))}
                   makePlay={handlePlay}
                   setFlag={handleFlag}
+                  endGame={endGame}
                 />
               </Table.Cell>
             )
@@ -36,7 +42,7 @@ const Board = props => {
   }
 
 return (
-  <Table celled>
+  <Table>
     <Table.Body>
       {generateTable()}
     </Table.Body>
@@ -45,7 +51,7 @@ return (
 }
 
 const mapDispatchToProps = {
-  makePlay, setFlag,
+  makePlay, setFlag, initGame,
 }
 
 const mapStateToProps = (state) => {
