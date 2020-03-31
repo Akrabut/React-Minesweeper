@@ -10,7 +10,7 @@ const Board = props => {
         <Table.Row key={`table-row-${i}`}>
           {row.map((column, j) =>
             <Table.Cell selectable textAlign='center' key={`table-cell-${j}`}>
-              <Tile x={i} y={j} value={props.gameState.board[i][j]} isFlagged={props.gameState.setFlags.has([i, j])}/>
+              <Tile x={i} y={j} value={props.gameState.board[i][j]} isFlagged={props.gameState.setFlags.has([i, j])} isRevealed={props.gameState.isRevealed.has([i, j])}/>
             </Table.Cell>)}
         </Table.Row>
       )

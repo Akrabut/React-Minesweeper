@@ -1,14 +1,13 @@
-function getRandomInt(max) {
+function randomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
 const placeMines = (board, numOfMines) => {
   while (numOfMines !== 0) {
-    const randX = getRandomInt(board.length - 1)
-    const randY = getRandomInt(board[0].length - 1)
-    console.log(randX, randY);
+    // generating random locations for mines could be O(infinity) but is good enough for this
+    const randX = randomInt(board.length - 1)
+    const randY = randomInt(board[0].length - 1)
     if (!board[randX][randY]) {
-      console.log(numOfMines);
       // M stands for Mine
       board[randX][randY] = 'M'
       numOfMines--
@@ -53,28 +52,51 @@ const calcNumOfMines = (rows, cols) => Math.floor(rows * cols) / 4
 
 const defaultMines = calcNumOfMines(30, 30)
 
+// this state seems a bit too big, but board must be aware of the number of mines for it to be initialized
+// in turn, remaining flags is dependent on reamaining mines, and remaining mines is dependent on number of mines
+// while it could make sense to separate some of these attributes into a different reducer, i feel like it would heavily over complicate things
 const defaultState = {
   rows: 30,
   columns: 30,
   numOfMines: defaultMines,
   remainingFlags: defaultMines,
+  remainingMines: defaultMines,
   board: generateBoard(30, 30, defaultMines),
   setFlags: new Set(),
+  revealedTiles: new Set(),
 }
 
 const gameStateReducer = (state = defaultState, action) => {
   switch (action.type) {
+    // when user sets board to a different size
+    case 'INIT_GAME':
+      const mines = calcNumOfMines(action.data.rows, action.data.columns)
+      return {
+        ...defaultState,
+        rows: action.data.rows,
+        columns: action.data.columns,
+        numOfMines: mines,
+        remainingFlags: mines,
+        remainingMines: mines,
+        board: generateBoard(action.data.rows, action.data.columns, mines)
+      }
     // when user plays
-    case 'SET_BOARD':
+    case 'MAKE_PLAY':
+      const set = new Set()
+      action.data.revealedTiles.forEach(tile => set.add(tile))
       return {
         ...state,
         board: action.data.board,
       }
     // when user places flag
-    case 'SET_FLAGS':
+    case 'SET_FLAG':
+      // if user placed flag on a mine
+      let remainingMines = state.remainingMines
+      if (action.data.mineFlagged) remainingMines--
       return {
         ...state,
         remainingFlags: state.remainingFlags - 1,
+        remainingMines: remainingMines,
         setFlags: state.setFlags.add(action.data.coord),
       }
     default:

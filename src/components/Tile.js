@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Transition, Icon } from 'semantic-ui-react'
 
-const Tile = ({ x, y, value, isFlagged }) => {
+const Tile = ({ x, y, value, isFlagged, isRevealed }) => {
   const [revealed, setRevealed] = useState(false)
   const [flagged, setFlagged] = useState(false)
 
+  // whether a tile if flagged or revealed should be persisted between rounds
+  // a tile obviously cant be both, but checking for that is redundant
   useEffect(() => {
     setFlagged(isFlagged)
+    setRevealed(isRevealed)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
