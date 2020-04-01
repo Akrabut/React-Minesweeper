@@ -40,9 +40,9 @@ const fillBoard = board => {
   }
 }
 
-const DEFAULT = 100
+const DEFAULT = 10
 
-export const calcNumOfMines = (rows, cols) => Math.floor((rows * cols) / 6)
+export const calcNumOfMines = (rows, cols) => Math.floor((rows * cols) / 8)
 
 const defaultMines = calcNumOfMines(DEFAULT, DEFAULT)
 

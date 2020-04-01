@@ -3,7 +3,7 @@ import Board from './Board'
 
 const style = {
   textAlign: 'center',
-  width: '70%',
+  width: '80%',
   marginLeft: 'auto',
   marginRight: 'auto',
 }
