@@ -7,10 +7,14 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
   // whether a tile if flagged or revealed should be persisted between rounds
   // a tile obviously cant be both, but checking for that is redundant
   useEffect(() => {
-    setFlagged(isFlagged)
     setRevealed(isRevealed)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRevealed, isFlagged])
+  }, [isRevealed])
+
+  useEffect(() => {
+    setFlagged(isFlagged)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFlagged])
 
   const setStyle = () => {
     switch (value) {
@@ -27,7 +31,9 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
     }
   }
 
-  const handleLeftClick = () => {
+  const handleLeftClick = (e) => {
+    // flagged is used to differentiate between flagging and unflagging
+    if (e.shiftKey) return setFlag([x, y], value, flagged)
     setRevealed(true)
     // pass setrevealed to flip the tile back after the game restarts
     if (value === 'M') return endGame(setRevealed)
@@ -42,15 +48,13 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
 
   if (revealed) {
     return (
-      // <Transition visible transitionOnMount={true} duration={1000}>
       <Card fluid style={setStyle()}>
         {displayProperValue()}
       </Card>
-      // </Transition>
     )
   } else if (flagged) {
     return (
-      <Card fluid style={{ backgroundColor: 'grey' }} onClick={() => setRevealed(true)}>
+      <Card fluid style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}>
         <Icon fitted={true} size='small' name='font awesome flag' />
       </Card>
     )

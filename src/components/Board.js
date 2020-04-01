@@ -1,15 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'semantic-ui-react'
 import Tile from './Tile'
-import { makePlay, setFlag, initGame} from '../actions/gameState'
+import { makePlay, setFlag, removeFlag, initGame} from '../actions/gameState'
 
 const Board = props => {
+  useEffect(() => {
+    if (props.gameState.remainingMines === 0) gameWon()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.gameState.remainingMines])
+
   const handlePlay = (coord, value) => {
     props.makePlay(coord, value, props.gameState.board)
   }
 
-  const handleFlag = (coord, value) => {
+  const outOfFlags = () => {
+    alert('Hmm... seems like we are out of flags')
+  }
+
+  const gameWon = () => {
+    alert('WOW YOU\'VE ACTUALLY WON!!!')
+    props.initGame(props.gameState.rows, props.gameState.columns)
+  }
+
+  const handleFlag = (coord, value, flagged) => {
+    console.log(props.gameState.mines);
+    console.log(props.gameState.remainingFlags, props.gameState.remainingMines);
+    if (flagged) return props.removeFlag(coord, value)
+    if (props.gameState.remainingFlags === 0) return outOfFlags()
     props.setFlag(coord, value)
   }
 
@@ -17,7 +35,7 @@ const Board = props => {
     alert('You have been exploded!')
     // use setrevealed to flip the tile back after the game restarts
     setRevealed(false)
-    props.initGame(20, 20)
+    props.initGame(props.gameState.rows, props.gameState.columns)
   }
 
   const generateTable = () => {
@@ -54,7 +72,7 @@ return (
 }
 
 const mapDispatchToProps = {
-  makePlay, setFlag, initGame,
+  makePlay, setFlag, removeFlag, initGame,
 }
 
 const mapStateToProps = (state) => {

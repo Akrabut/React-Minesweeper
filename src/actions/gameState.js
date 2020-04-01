@@ -66,7 +66,20 @@ export const setFlag = (flaggedTile, value) => {
   // isMine indicates whether flagged tile has mine underneath
   return {
     type: 'SET_FLAG',
-    mineFlagged: value === 'M',
-    coord: flaggedTile,
+    data: {
+      mineFlagged: value === 'M',
+      coord: flaggedTile,
+    }
+  }
+}
+
+export const removeFlag = (unflaggedTile, value) => {
+  // case where user unflagged an already flagged mine needs to be checked
+  return {
+    type: 'REMOVE_FLAG',
+    data: {
+      mineUnflagged: value === 'M',
+      coord: unflaggedTile,
+    }
   }
 }
