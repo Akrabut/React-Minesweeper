@@ -1,12 +1,18 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react'
 import Board from './Board'
+
+const style = {
+  textAlign: 'center',
+  width: '70%',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+}
 
 function App() {
   return (
-    <Container id="main-container" textAlign='center'>
+    <main style={style}>
       <Board/>
-    </Container>
+    </main>
   );
 }
 

@@ -23,10 +23,11 @@ const Board = props => {
   const generateTable = () => {
     return props.gameState.board.map((row, i) => {
       return (
-        <Table.Row key={`table-row-${i}`}>
+        // indexes can be used as keys here since array elements are never removed
+        <Table.Row key={`${i}`}>
           {row.map((column, j) => {
             return (
-              <Table.Cell selectable textAlign='center' key={`table-cell-${j}`}>
+              <Table.Cell selectable textAlign='center' key={`${i},${j}`}>
                 <Tile x={i} y={j}
                   value={props.gameState.board[i][j]}
                   isFlagged={props.gameState.setFlags.has(JSON.stringify([i, j]))}
@@ -44,7 +45,7 @@ const Board = props => {
   }
 
 return (
-  <Table>
+  <Table celled fixed>
     <Table.Body>
       {generateTable()}
     </Table.Body>
