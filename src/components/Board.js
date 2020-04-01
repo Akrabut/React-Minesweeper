@@ -24,8 +24,6 @@ const Board = props => {
   }
 
   const handleFlag = (coord, value, flagged) => {
-    console.log(props.gameState.mines);
-    console.log(props.gameState.remainingFlags, props.gameState.remainingMines);
     if (flagged) return props.removeFlag(coord, value)
     if (props.gameState.remainingFlags === 0) return outOfFlags()
     props.setFlag(coord, value)
