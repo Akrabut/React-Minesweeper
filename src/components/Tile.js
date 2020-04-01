@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Icon } from 'semantic-ui-react'
+import { Icon, Table } from 'semantic-ui-react'
 
 const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }) => {
   const [revealed, setRevealed] = useState(false)
   const [flagged, setFlagged] = useState(false)
-  // whether a tile if flagged or revealed should be persisted between rounds
-  // a tile obviously cant be both, but checking for that is redundant
+
   useEffect(() => {
     setRevealed(isRevealed)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,21 +47,23 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
 
   if (revealed) {
     return (
-      <Card fluid style={setStyle()}>
+      <Table.Cell textAlign={'center'} verticalAlign={'middle'} style={setStyle()}>
         {displayProperValue()}
-      </Card>
+      </Table.Cell>
     )
   } else if (flagged) {
     return (
-      <Card fluid style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}>
+      <Table.Cell textAlign={'center'} style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}>
         <Icon fitted={true} size='small' name='font awesome flag' />
-      </Card>
+      </Table.Cell>
     )
   } else {
     return (
-      <Card fluid style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}>
-        <p style={{ color: 'grey' }}>?</p>
-      </Card>
+      <Table.Cell style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}>
+      {/* <div className='grid-column' style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}> */}
+      {/* hi */}
+      {/* </div> */}
+      </Table.Cell>
     )
   }
 }

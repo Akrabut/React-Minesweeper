@@ -40,7 +40,7 @@ const fillBoard = board => {
   }
 }
 
-const DEFAULT = 20
+const DEFAULT = 100
 
 export const calcNumOfMines = (rows, cols) => Math.floor((rows * cols) / 6)
 
@@ -56,12 +56,13 @@ export const generateBoard = (rows, columns, numOfMines) => {
   return [board, mines]
 }
 
-// this state seems a bit too big, but board must be aware of the number of mines for it to be initialized
-// in turn, remaining flags is dependent on reamaining mines, and remaining mines is dependent on number of mines
-// while it could make sense to separate some of these attributes into a different reducer, i feel like it would heavily over complicate things
-// defaultGame[0] is the game board and defaultGame[1] is the set of mine coordinates
+// this state might seem a bit too big, but board must be aware of the number of mines for it to be initialized
+// in turn, remaining flags is dependent on remaining mines, and remaining mines is dependent on number of mines
+// while it could make sense to separate some of these attributes into a different reducer, it feels like it would needlessly over complicate things
+
 const defaultGame = generateBoard(DEFAULT, DEFAULT, defaultMines)
 
+// defaultGame[0] is the game board and defaultGame[1] is the set of mine coordinates
 export const defaultState = {
   rows: DEFAULT,
   columns: DEFAULT,

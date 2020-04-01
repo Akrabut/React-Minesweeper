@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'semantic-ui-react'
 import Tile from './Tile'
-import { makePlay, setFlag, removeFlag, initGame} from '../actions/gameState'
+import { makePlay, setFlag, removeFlag, initGame } from '../actions/gameState'
 
 const Board = props => {
   useEffect(() => {
     if (props.gameState.remainingMines === 0) gameWon()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.gameState.remainingMines])
 
   const handlePlay = (coord, value) => {
@@ -36,37 +36,48 @@ const Board = props => {
     props.initGame(props.gameState.rows, props.gameState.columns)
   }
 
+  const sectionStyle = {
+    display: 'grid',
+    gridTemplateRows: '1fr',
+    gridTemplateColumns: '1fr',
+  }
+
   const generateTable = () => {
     return props.gameState.board.map((row, i) => {
       return (
         // indexes can be used as keys here since array elements are never removed
         <Table.Row key={`${i}`}>
+        {/* <div key={i} className='grid-row'> */}
           {row.map((column, j) => {
             return (
-              <Table.Cell selectable textAlign='center' key={`${i},${j}`}>
-                <Tile x={i} y={j}
-                  value={props.gameState.board[i][j]}
-                  isFlagged={props.gameState.setFlags.has(JSON.stringify([i, j]))}
-                  isRevealed={props.gameState.revealedTiles.has(JSON.stringify([i, j]))}
-                  makePlay={handlePlay}
-                  setFlag={handleFlag}
-                  endGame={endGame}
-                />
-              </Table.Cell>
+              <Tile x={i} y={j} key={`${i},${j}`}
+                value={props.gameState.board[i][j]}
+                isFlagged={props.gameState.setFlags.has(JSON.stringify([i, j]))}
+                isRevealed={props.gameState.revealedTiles.has(JSON.stringify([i, j]))}
+                makePlay={handlePlay}
+                setFlag={handleFlag}
+                endGame={endGame}
+              />
             )
           })}
+        {/* </div> */}
         </Table.Row>
       )
     })
   }
 
-return (
-  <Table celled fixed>
-    <Table.Body>
-      {generateTable()}
-    </Table.Body>
-  </Table>
-)
+  return (
+    <Table celled fixed>
+      <Table.Body>
+        {generateTable()}
+      </Table.Body>
+    </Table>
+  )
+  // return (
+  //   <section style={ sectionStyle }>
+  //     {generateTable()}
+  //   </section>
+  // )
 }
 
 const mapDispatchToProps = {
