@@ -15,7 +15,7 @@ const gameStateReducer = (state = defaultState, action) => {
     // when user sets board to a different size
     case 'INIT_GAME':
       const mines = calcNumOfMines(action.data.rows, action.data.columns)
-      const newGame = generateBoard(action.data.rows, action.data.columns, mines)
+      const newGame = generateBoard(action.data.rows, action.data.columns, action.data.mines || mines)
       return {
         ...defaultState,
         rows: action.data.rows,

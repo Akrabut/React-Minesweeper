@@ -4,16 +4,23 @@ function randomInt(max) {
 
 const placeMines = (board, numOfMines) => {
   const mines = new Set()
+  let i = 0
   while (numOfMines !== 0) {
     // generating random locations for mines could be O(infinity) but is good enough for this
-    const randX = randomInt(board.length - 1)
-    const randY = randomInt(board[0].length - 1)
+    const randX = randomInt(board.length)
+    const randY = randomInt(board[0].length)
     if (!board[randX][randY]) {
       // M stands for Mine
       board[randX][randY] = 'M'
       mines.add(JSON.stringify([randX, randY]))
       numOfMines--
     }
+    // make sure players' browser never freezes
+    if (i > board.length * board[0].length * 1000000) {
+      alert('An extremely uncommon stastical issue occured') 
+      throw Error
+    }
+    i++
   }
   return mines // is used for superman mode
 }
@@ -47,11 +54,11 @@ export const calcNumOfMines = (rows, cols) => Math.floor((rows * cols) / 8)
 const defaultMines = calcNumOfMines(DEFAULT, DEFAULT)
 
 export const generateBoard = (rows, columns, numOfMines) => {
-  const board = new Array(rows);
+  const board = new Array(rows || DEFAULT);
   for (let i = 0; i < rows; i++) {
-    board[i] = new Array(columns)
+    board[i] = new Array(columns || DEFAULT)
   }
-  const mines = placeMines(board, numOfMines)
+  const mines = placeMines(board, numOfMines || defaultMines)
   fillBoard(board)
   return [board, mines]
 }

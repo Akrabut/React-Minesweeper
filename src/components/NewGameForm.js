@@ -9,6 +9,7 @@ const themeInherit = { color: 'inherit' }
 const NewGameForm = props => {
   const [rows, setRows] = useState(props.gameState.rows || '')
   const [columns, setColumns] = useState(props.gameState.columns || '')
+  const [mines, setMines] = useState(props.gameState.numOfMines || '')
 
   const handleChange = (e, setter) => {
     if ((e.target.value <= 300)) setter(e.target.value)
@@ -16,13 +17,20 @@ const NewGameForm = props => {
 
   const handleClick = (e) => {
     // lets just prevent the player from trolling us
-    if (rows < 5) setRows(5)
-    if (columns < 5) setColumns(5)
-    props.initGame(rows, columns)
+    if (!rows || rows < 5) setRows(5)
+    if (!columns || columns < 5) setColumns(5)
+    if (!mines || mines > Math.floor(rows * columns * 0.8)) setMines(Math.floor((rows * columns / 8)))
+    console.log(!rows);
+    setRows(5)
+    console.log(rows);
+    props.initGame(parseInt(rows), parseInt(columns), parseInt(mines))
   }
 
   return (
     <Menu.Item style={colorTheme}>
+    {/* while it makes sense to move the remaining flags paragraph to another component (or at least not this one), it will require
+    the other component to be connected just for a single paragraph element which makes no sense */}
+      <p style={{ fontWeight: 'bold', color: 'red' }}>{`Remaining flags: ${props.gameState.remainingFlags}`}</p>
       <p style={{ fontWeight: 'bold' }}>New game</p>
       <Form>
         <Form.Field>
@@ -32,6 +40,10 @@ const NewGameForm = props => {
         <Form.Field>
           <label style={themeInherit}>Columns</label>
           <input placeholder='5-300' value={columns} onChange={e => handleChange(e, setColumns) } />
+        </Form.Field>
+        <Form.Field>
+          <label style={themeInherit}>Mines</label>
+          <input placeholder='5-300' value={mines} onChange={e => handleChange(e, setMines)} />
         </Form.Field>
       </Form>
       <Button type='submit' onClick={handleClick} icon labelPosition='right' style={{ backgroundColor: 'GhostWhite', color: 'black', marginTop: '1.5em' }}>

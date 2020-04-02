@@ -1,11 +1,12 @@
 import { revealAdjacentEmptyTiles } from '../helpers/gameStateActions'
 
-export const initGame = (rows, columns) => {
+export const initGame = (rows, columns, mines) => {
   return {
     type: 'INIT_GAME',
     data: {
       rows: rows,
       columns: columns,
+      mines: mines,
     }
   }
 }

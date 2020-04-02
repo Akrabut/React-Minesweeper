@@ -10,9 +10,9 @@ const Sidenavbar = () => (
     visible
     inverted
     vertical
-    width='thin'>
-    <Superman/>
-    <NewGameForm/>
+    style={{ width: '8%' }}>
+    <Superman />
+    <NewGameForm />
   </Sidebar>
 )
 
