@@ -32,6 +32,7 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
 
   const handleLeftClick = (e) => {
     // flagged is used to differentiate between flagging and unflagging
+    if (flagged && !e.shiftKey) return
     if (e.shiftKey) return setFlag([x, y], value, flagged)
     setRevealed(true)
     // pass setrevealed to flip the tile back after the game restarts
@@ -54,7 +55,7 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
   } else if (flagged) {
     return (
       <Card raised style={{ backgroundColor: 'grey', color: 'black', margin: 0, width: 'inherit' }} onClick={handleLeftClick}>
-        <Icon fitted={true} size='medium' name='font awesome flag' />
+        <Icon fitted={true} name='font awesome flag' />
       </Card>
     )
   } else {

@@ -17,13 +17,14 @@ const NewGameForm = props => {
 
   const handleClick = (e) => {
     // lets just prevent the player from trolling us
-    if (!rows || rows < 5) setRows(5)
-    if (!columns || columns < 5) setColumns(5)
-    if (!mines || mines > Math.floor(rows * columns * 0.8)) setMines(Math.floor((rows * columns / 8)))
-    console.log(!rows);
-    setRows(5)
-    console.log(rows);
-    props.initGame(parseInt(rows), parseInt(columns), parseInt(mines))
+    if (rows < 5) setRows(5)
+    if (columns < 5) setColumns(5)
+    if (mines > Math.floor(rows * columns * 0.8)) {
+      console.log(mines);
+      setMines(Math.floor((rows * columns / 8)))
+      console.log(mines);
+    }
+    props.initGame(parseInt(rows || 5), parseInt(columns || 5), parseInt(mines || 3))
   }
 
   return (
