@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Card } from 'semantic-ui-react'
 
 const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }) => {
   const [revealed, setRevealed] = useState(false)
@@ -47,29 +47,21 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
 
   if (revealed) {
     return (
-      // <Table.Cell textAlign={'center'} style={setStyle()}>
-      //   {displayProperValue()}
-      // </Table.Cell>
       <div style={setStyle()}>
         {displayProperValue()}
       </div>
     )
   } else if (flagged) {
     return (
-      // <Table.Cell textAlign={'center'} style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}>
-      //   <Icon fitted={true} size='small' name='font awesome flag' />
-      // </Table.Cell>
-      <div style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}>
-        <Icon fitted={true} size='small' name='font awesome flag' />
-      </div>
+      <Card raised style={{ backgroundColor: 'grey', color: 'black', margin: 0, width: 'inherit' }} onClick={handleLeftClick}>
+        <Icon fitted={true} size='medium' name='font awesome flag' />
+      </Card>
     )
   } else {
     return (
-      // <Table.Cell style={{ backgroundColor: 'grey' }} onClick={handleLeftClick}>
-      <div className='grid-column' style={{ backgroundColor: 'grey', color: 'grey' }} onClick={handleLeftClick}>
+      <Card raised style={{ backgroundColor: 'grey', color: 'grey', margin: 0, width: 'inherit' }} onClick={handleLeftClick}>
         {'?'}
-      </div>
-      // </Table.Cell>
+      </Card>
     )
   }
 }

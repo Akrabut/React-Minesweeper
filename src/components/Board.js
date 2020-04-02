@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-// import { Table } from 'semantic-ui-react'
 import Tile from './Tile'
 import { makePlay, setFlag, removeFlag, initGame } from '../actions/gameState'
 
@@ -48,33 +47,24 @@ const Board = props => {
 
   const generateTable = () => {
     return props.gameState.board.map((row, i) => (
-        // indexes can be used as keys here since array elements are never removed
-        // <Table.Row key={`${i}`}>
-          row.map((column, j) => (
-              <Tile x={i} y={j} key={`${i},${j}`}
-                value={props.gameState.board[i][j]}
-                isFlagged={props.gameState.setFlags.has(JSON.stringify([i, j]))}
-                isRevealed={props.gameState.revealedTiles.has(JSON.stringify([i, j]))}
-                makePlay={handlePlay}
-                setFlag={handleFlag}
-                endGame={endGame}
-              />
-            )
-          )
-        // </Table.Row>
+      // indexes can be used as keys here since array elements are never removed
+      row.map((column, j) => (
+        <Tile x={i} y={j} key={`${i},${j}`}
+          value={props.gameState.board[i][j]}
+          isFlagged={props.gameState.setFlags.has(JSON.stringify([i, j]))}
+          isRevealed={props.gameState.revealedTiles.has(JSON.stringify([i, j]))}
+          makePlay={handlePlay}
+          setFlag={handleFlag}
+          endGame={endGame}
+        />
       )
+      )
+    )
     )
   }
 
-  // return (
-  //   <Table celled fixed>
-  //     <Table.Body>
-  //       {generateTable()}
-  //     </Table.Body>
-  //   </Table>
-  // )
   return (
-    <section style={ sectionStyle }>
+    <section style={sectionStyle}>
       {generateTable()}
     </section>
   )
