@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './Board'
+import Sidenavbar from './Sidenavbar'
 
 const style = {
   textAlign: 'center',
@@ -11,7 +12,8 @@ const style = {
 function App() {
   return (
     <main style={style}>
-      <Board/>
+      <Sidenavbar />
+      <Board />
     </main>
   );
 }

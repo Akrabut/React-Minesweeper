@@ -66,4 +66,9 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
   }
 }
 
+// const areEqual = (prevProps, nextProps) => {
+//   return prevProps.isRevealed === nextProps.isRevealed && prevProps.isFlagged === nextProps.isFlagged
+// }
+
+// export default React.memo(Tile, areEqual)
 export default Tile
