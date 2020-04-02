@@ -8,7 +8,7 @@ const style = {
   marginLeft: 'auto',
   marginRight: 'auto',
 }
-
+// TODO: TESTS, SIDEBAR SUPPORT FOR MOBILE, PERFORMANCE
 function App() {
   return (
     <main style={style}>
