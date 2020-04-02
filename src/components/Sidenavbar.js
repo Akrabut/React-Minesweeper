@@ -14,7 +14,7 @@ const Sidenavbar = () => {
         active={visible}
         onClick={() => setVisible(!visible)}
         floated='right'
-        style={{ marginBottom: '2%' }}>
+        style={{ marginBottom: '2%', backgroundColor: 'white', color: '#21ba45' }}>
         Options
       </Button>
       <Sidebar

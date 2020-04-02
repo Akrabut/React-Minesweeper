@@ -53,6 +53,7 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, superman, makePlay, setFlag,
     return value
   }
 
+  // these 'ifs' could be their own components, but it seems redundant and too fractured to have four three line components
   if (revealed) {
     return (
       <div className='revealed-tile' style={setStyle()}>
@@ -71,13 +72,16 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, superman, makePlay, setFlag,
         <Icon fitted={true} name='exclamation' color='red' />
       </Card>
     )
-} else {
-  return (
-    <Card className='hidden-tile' raised style={{...hiddenStyle, color: 'grey'}} onClick={handleLeftClick}>
-      {'?'}
-    </Card>
-  )
-}
+  } else {
+    return (
+      <Card className='hidden-tile' raised style={{ ...hiddenStyle, color: 'grey' }} onClick={handleLeftClick}>
+        {'?'}
+      </Card>
+      // <div className='hidden-tile' style={{ ...hiddenStyle, color: 'grey' }} onClick={handleLeftClick}>
+      //   {'?'}
+      // </div>
+    )
+  }
 }
 
 // const areEqual = (prevProps, nextProps) => {

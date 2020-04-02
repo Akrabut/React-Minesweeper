@@ -6,17 +6,12 @@ import { supermanActions } from '../actions/superman'
 const colorTheme = { color: 'inherit' }
 
 const Superman = props => {
-  const buttonStyle = () => {
-    return (
-      props.superman
-        ? { backgroundColor: 'brown', color: 'white' }
-        : { backgroundColor: 'white', color: 'brown' }
-    )
-  }
-
   return (
     <Menu.Item>
-      <Button className='superman-button' toggle active={props.superman} style={buttonStyle()} onClick={() => props.supermanActions(!props.superman)}>
+      <Button className='superman-button'
+        toggle active={props.superman}
+        style={{ backgroundColor: 'white', color: '#21ba45' }}
+        onClick={() => props.supermanActions(!props.superman)}>
         <p style={colorTheme}>
           Superman
           <Icon name={'superpowers'} style={colorTheme} />
