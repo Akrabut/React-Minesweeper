@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Menu, Form, Button, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { initGame } from '../actions/gameState'
@@ -11,8 +11,24 @@ const NewGameForm = props => {
   const [columns, setColumns] = useState(props.gameState.columns || '')
   const [mines, setMines] = useState(props.gameState.numOfMines || '')
 
+  useEffect(() => {
+    setRows(props.gameState.rows)
+  }, [props.gameState.rows])
+
+  useEffect(() => {
+    setColumns(props.gameState.columns)
+  }, [props.gameState.columns])
+
+  useEffect(() => {
+    setMines(props.gameState.numOfMines)
+  }, [props.gameState.numOfMines])
+
   const handleChange = (e, setter) => {
     if ((e.target.value <= 300)) setter(e.target.value)
+  }
+
+  const handleMineChange = (e) => {
+    if ((e.target.value < Math.floor(rows * columns) * 0.8)) setMines(e.target.value)
   }
 
   const handleClick = (e) => {
@@ -21,7 +37,7 @@ const NewGameForm = props => {
     if (columns < 5) setColumns(5)
     if (mines > Math.floor(rows * columns * 0.8)) {
       console.log(mines);
-      setMines(Math.floor((rows * columns / 8)))
+      setMines(Math.floor((rows * columns) / 8))
       console.log(mines);
     }
     props.initGame(parseInt(rows || 5), parseInt(columns || 5), parseInt(mines || 3))
@@ -44,7 +60,7 @@ const NewGameForm = props => {
         </Form.Field>
         <Form.Field>
           <label style={themeInherit}>Mines</label>
-          <input placeholder='5-300' value={mines} onChange={e => handleChange(e, setMines)} />
+          <input placeholder='5-300' value={mines} onChange={handleMineChange} />
         </Form.Field>
       </Form>
       <Button type='submit' onClick={handleClick} icon labelPosition='right' style={{ backgroundColor: 'GhostWhite', color: 'black', marginTop: '1.5em' }}>
