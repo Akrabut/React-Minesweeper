@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Icon, Card } from 'semantic-ui-react'
 
-const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }) => {
+const Tile = ({ x, y, value, isFlagged, isRevealed, superman, makePlay, setFlag, endGame }) => {
   const [revealed, setRevealed] = useState(false)
   const [flagged, setFlagged] = useState(false)
 
@@ -30,6 +30,13 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
     }
   }
 
+  const hiddenStyle = {
+    backgroundColor: 'grey',
+    color: 'black',
+    margin: 0,
+    width: 'inherit',
+  }
+
   const handleLeftClick = (e) => {
     // flagged is used to differentiate between flagging and unflagging
     if (flagged && !e.shiftKey) return
@@ -48,23 +55,29 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, makePlay, setFlag, endGame }
 
   if (revealed) {
     return (
-      <div style={setStyle()}>
+      <div className='revealed-tile' style={setStyle()}>
         {displayProperValue()}
       </div>
     )
   } else if (flagged) {
     return (
-      <Card raised style={{ backgroundColor: 'grey', color: 'black', margin: 0, width: 'inherit' }} onClick={handleLeftClick}>
+      <Card className='flagged-tile' raised style={hiddenStyle} onClick={handleLeftClick}>
         <Icon fitted={true} name='font awesome flag' />
       </Card>
     )
-  } else {
+  } else if (value === 'M' && superman) {
     return (
-      <Card raised style={{ backgroundColor: 'grey', color: 'grey', margin: 0, width: 'inherit' }} onClick={handleLeftClick}>
-        {'?'}
+      <Card className='superman-tile' raised style={hiddenStyle} onClick={handleLeftClick}>
+        <Icon fitted={true} name='exclamation' color='red' />
       </Card>
     )
-  }
+} else {
+  return (
+    <Card className='hidden-tile' raised style={{...hiddenStyle, color: 'grey'}} onClick={handleLeftClick}>
+      {'?'}
+    </Card>
+  )
+}
 }
 
 // const areEqual = (prevProps, nextProps) => {

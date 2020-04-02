@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Tile from './Tile'
 import { makePlay, setFlag, removeFlag, initGame } from '../actions/gameState'
+import { supermanActions } from '../actions/superman'
 
 const Board = props => {
   useEffect(() => {
@@ -19,6 +20,7 @@ const Board = props => {
 
   const gameWon = () => {
     alert('WOW YOU\'VE ACTUALLY WON!!!')
+    props.supermanActions(false)
     props.initGame(props.gameState.rows, props.gameState.columns)
   }
 
@@ -32,6 +34,7 @@ const Board = props => {
     alert('You have been exploded!')
     // use setrevealed to flip the tile back after the game restarts
     setRevealed(false)
+    props.supermanActions(false)
     props.initGame(props.gameState.rows, props.gameState.columns)
   }
 
@@ -53,6 +56,7 @@ const Board = props => {
           value={props.gameState.board[i][j]}
           isFlagged={props.gameState.setFlags.has(JSON.stringify([i, j]))}
           isRevealed={props.gameState.revealedTiles.has(JSON.stringify([i, j]))}
+          superman={props.superman}
           makePlay={handlePlay}
           setFlag={handleFlag}
           endGame={endGame}
@@ -64,19 +68,20 @@ const Board = props => {
   }
 
   return (
-    <section style={sectionStyle}>
+    <section className='board' style={sectionStyle}>
       {generateTable()}
     </section>
   )
 }
 
 const mapDispatchToProps = {
-  makePlay, setFlag, removeFlag, initGame,
+  makePlay, setFlag, removeFlag, initGame, supermanActions
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     gameState: state.gameState,
+    superman: state.superman,
   }
 }
 

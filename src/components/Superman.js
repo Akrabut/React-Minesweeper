@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Menu, Icon, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { supermanActions } from '../actions/superman'
 
 const colorTheme = { color: 'inherit' }
 
-const Superman = () => {
-  const [active, setActive] = useState(false)
-
+const Superman = props => {
   const buttonStyle = () => {
     return (
-      active
+      props.superman
         ? { backgroundColor: 'brown', color: 'white' }
         : { backgroundColor: 'white', color: 'brown' }
     )
@@ -16,7 +16,7 @@ const Superman = () => {
 
   return (
     <Menu.Item>
-      <Button toggle active={false} style={buttonStyle()} onClick={() => setActive(!active)}>
+      <Button className='superman-button' toggle active={props.superman} style={buttonStyle()} onClick={() => props.supermanActions(!props.superman)}>
         <p style={colorTheme}>
           Superman
           <Icon name={'superpowers'} style={colorTheme} />
@@ -26,4 +26,15 @@ const Superman = () => {
   )
 }
 
-export default Superman
+const mapDispatchToProps = {
+  supermanActions,
+}
+
+const mapStateToProps = state => {
+  return {
+    superman: state.superman,
+  }
+}
+
+const connectedSuperman = connect(mapStateToProps, mapDispatchToProps)(Superman)
+export default connectedSuperman

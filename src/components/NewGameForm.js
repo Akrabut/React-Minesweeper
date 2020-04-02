@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Menu, Form, Button, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { initGame } from '../actions/gameState'
+import { supermanActions } from '../actions/superman'
 
 const colorTheme = { color: 'white' }
 const themeInherit = { color: 'inherit' }
@@ -36,10 +37,9 @@ const NewGameForm = props => {
     if (rows < 5) setRows(5)
     if (columns < 5) setColumns(5)
     if (mines > Math.floor(rows * columns * 0.8)) {
-      console.log(mines);
       setMines(Math.floor((rows * columns) / 8))
-      console.log(mines);
     }
+    props.supermanActions(false)
     props.initGame(parseInt(rows || 5), parseInt(columns || 5), parseInt(mines || 3))
   }
 
@@ -47,9 +47,9 @@ const NewGameForm = props => {
     <Menu.Item style={colorTheme}>
     {/* while it makes sense to move the remaining flags paragraph to another component (or at least not this one), it will require
     the other component to be connected just for a single paragraph element which makes no sense */}
-      <p style={{ fontWeight: 'bold', color: 'red' }}>{`Remaining flags: ${props.gameState.remainingFlags}`}</p>
+      <p className='remaining-flags' style={{ fontWeight: 'bold', color: 'red' }}>{`Remaining flags: ${props.gameState.remainingFlags}`}</p>
       <p style={{ fontWeight: 'bold' }}>New game</p>
-      <Form>
+      <Form className='new-game-form'>
         <Form.Field>
           <label style={themeInherit}>Rows</label>
           <input placeholder='5-300' value={rows} onChange={e => handleChange(e, setRows) } />
@@ -72,12 +72,13 @@ const NewGameForm = props => {
 }
 
 const mapDispatchToProps = {
-  initGame,
+  initGame, supermanActions
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     gameState: state.gameState,
+    superman: state.superman,
   }
 }
 

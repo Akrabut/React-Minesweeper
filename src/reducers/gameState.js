@@ -16,7 +16,6 @@ const gameStateReducer = (state = defaultState, action) => {
     case 'INIT_GAME':
       const mines = action.data.mines || calcNumOfMines(action.data.rows, action.data.columns)
       const newGame = generateBoard(action.data.rows, action.data.columns, mines)
-      console.log(action.data.mines);
       return {
         ...defaultState,
         rows: action.data.rows,

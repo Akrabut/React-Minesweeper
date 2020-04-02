@@ -5,6 +5,7 @@ import NewGameForm from './NewGameForm'
 
 const Sidenavbar = () => (
   <Sidebar
+    className='bar'
     as={Menu}
     animation='overlay'
     visible
