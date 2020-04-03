@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Icon, Card } from 'semantic-ui-react'
 import RevealedTile from './RevealedTile'
 import FlaggedTile from './FlaggedTile'
+import SupermanMineTile from './SupermanMineTile'
+import HiddenTile from './HiddenTile'
 
 const Tile = ({ x, y, value, isFlagged, isRevealed, superman, makePlay, setFlag, endGame }) => {
   const [revealed, setRevealed] = useState(isRevealed)
@@ -60,29 +62,31 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, superman, makePlay, setFlag,
 
   if (revealed) {
     return (
-      <div style={setStyle()}>
-        {displayProperValue()}
-      </div>
-      // {/* <RevealedTile value={displayProperValue()} style={setStyle()}/> */}
+      // <div style={setStyle()}>
+      //   {displayProperValue()}
+      // </div>
+      <RevealedTile value={displayProperValue()} style={setStyle()}/>
     )
   } else if (flagged) {
     return (
-      <Card className='flagged-tile' raised style={hiddenStyle} onClick={handleClick}>
-        <Icon fitted={true} name='font awesome flag' />
-      </Card>
-      // {/* <FlaggedTile style={hiddenStyle} onClick={handleClick} /> */}
+      // <Card className='flagged-tile' raised style={hiddenStyle} onClick={handleClick}>
+      //   <Icon fitted={true} name='font awesome flag' />
+      // </Card>
+      <FlaggedTile style={hiddenStyle} handleClick={handleClick} />
     )
   } else if (value === 'M' && superman) {
     return (
-      <Card className='superman-tile' raised style={hiddenStyle} onClick={handleClick}>
-        <Icon fitted={true} name='exclamation' color='red' />
-      </Card>
+      // <Card className='superman-tile' raised style={hiddenStyle} onClick={handleClick}>
+      //   <Icon fitted={true} name='exclamation' color='red' />
+      // </Card>
+      <SupermanMineTile style={hiddenStyle} handleClick={handleClick} />
     )
   } else {
     return (
-      <Card className='hidden-tile' raised style={{ ...hiddenStyle, color: 'grey' }} onClick={handleClick}>
-        {'?'}
-      </Card>
+      <HiddenTile style={{ ...hiddenStyle, color: 'grey' }} handleClick={handleClick} />
+      // {/* <Card className='hidden-tile' raised style={{ ...hiddenStyle, color: 'grey' }} onClick={handleClick}>
+      //   {'?'}
+      // </Card> */}
       // <div className='hidden-tile' style={{ ...hiddenStyle, color: 'grey' }} onClick={handleLeftClick}>
       //   {'?'}
       // </div>
