@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Icon, Card } from 'semantic-ui-react'
+import RevealedTile from './RevealedTile'
+import FlaggedTile from './FlaggedTile'
 
 const Tile = ({ x, y, value, isFlagged, isRevealed, superman, makePlay, setFlag, endGame }) => {
-  const [revealed, setRevealed] = useState(false)
-  const [flagged, setFlagged] = useState(false)
-
+  const [revealed, setRevealed] = useState(isRevealed)
+  const [flagged, setFlagged] = useState(isFlagged)
+  
   useEffect(() => {
     setRevealed(isRevealed)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,13 +39,16 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, superman, makePlay, setFlag,
     width: 'inherit',
   }
 
-  const handleLeftClick = (e) => {
-    // flagged is used to differentiate between flagging and unflagging
+  const handleClick = (e) => {
+    // tile is not left clickable if its flagged
     if (flagged && !e.shiftKey) return
+    // tile is shift+left clickable if its hidden or flagged (flag or unflag)
     if (e.shiftKey) return setFlag([x, y], value, flagged)
     setRevealed(true)
     // pass setrevealed to flip the tile back after the game restarts
+    // game is over if clicked tile is a mine
     if (value === 'M') return endGame(setRevealed)
+    // its a normal turn if none of the above occurs
     makePlay([x, y], value)
   }
 
@@ -53,28 +58,29 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, superman, makePlay, setFlag,
     return value
   }
 
-  // these 'ifs' could be their own components, but it seems redundant and too fractured to have four three line components
   if (revealed) {
     return (
-      <div className='revealed-tile' style={setStyle()}>
+      <div style={setStyle()}>
         {displayProperValue()}
       </div>
+      // {/* <RevealedTile value={displayProperValue()} style={setStyle()}/> */}
     )
   } else if (flagged) {
     return (
-      <Card className='flagged-tile' raised style={hiddenStyle} onClick={handleLeftClick}>
+      <Card className='flagged-tile' raised style={hiddenStyle} onClick={handleClick}>
         <Icon fitted={true} name='font awesome flag' />
       </Card>
+      // {/* <FlaggedTile style={hiddenStyle} onClick={handleClick} /> */}
     )
   } else if (value === 'M' && superman) {
     return (
-      <Card className='superman-tile' raised style={hiddenStyle} onClick={handleLeftClick}>
+      <Card className='superman-tile' raised style={hiddenStyle} onClick={handleClick}>
         <Icon fitted={true} name='exclamation' color='red' />
       </Card>
     )
   } else {
     return (
-      <Card className='hidden-tile' raised style={{ ...hiddenStyle, color: 'grey' }} onClick={handleLeftClick}>
+      <Card className='hidden-tile' raised style={{ ...hiddenStyle, color: 'grey' }} onClick={handleClick}>
         {'?'}
       </Card>
       // <div className='hidden-tile' style={{ ...hiddenStyle, color: 'grey' }} onClick={handleLeftClick}>

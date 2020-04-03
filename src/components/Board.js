@@ -11,7 +11,7 @@ const Board = props => {
   }, [props.gameState.remainingMines])
 
   const handlePlay = (coord, value) => {
-    props.makePlay(coord, value, props.gameState.board)
+    props.makePlay(coord, value, props.gameState.board, props.gameState.setFlags)
   }
 
   const outOfFlags = () => {

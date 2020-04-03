@@ -11,14 +11,14 @@ export const initGame = (rows, columns, mines) => {
   }
 }
 
-export const makePlay = (clickedTile, value, board) => {
+export const makePlay = (clickedTile, value, board, setFlags) => {
   // clickedTile is of format [i, j]
   // case where value === M is handled in gameOverReducer
   if (value === 'E') {
     return {
       type: 'MAKE_PLAY',
       data: {
-        revealedTiles: revealAdjacentEmptyTiles(clickedTile, board),
+        revealedTiles: revealAdjacentEmptyTiles(clickedTile, board, setFlags),
       }
     }
     // case where symbol is a number (reveal only this tile)
