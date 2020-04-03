@@ -6,8 +6,9 @@ const RevealedTile = ({ style, value }) => (
   </div>
 )
 
-const areEqual = (prevProps, nextProps) => {
-  return prevProps.value === nextProps.value
-}
+// const areEqual = (prevProps, nextProps) => {
+//   return prevProps.value === nextProps.value
+// }
 
-export default React.memo(RevealedTile, areEqual)
+// export default React.memo(RevealedTile, areEqual)
+export default RevealedTile

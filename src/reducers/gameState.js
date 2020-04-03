@@ -33,6 +33,7 @@ const gameStateReducer = (state = defaultState, action) => {
       newFlag.add(JSON.stringify(action.data.coord))
       // if user placed flag on a mine
       if (action.data.mineFlagged) remainingMines--
+      console.log(state.remainingFlags);
       return {
         ...state,
         remainingFlags: state.remainingFlags - 1,

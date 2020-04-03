@@ -7,8 +7,9 @@ const FlaggedTile = ({ style, handleClick }) => (
   </Card>
 )
 
-const areEqual = (prevProps, nextProps) => {
-  return prevProps.style.backgroundColor === nextProps.style.backgroundColor
-}
+// const areEqual = (prevProps, nextProps) => {
+//   return prevProps.style.backgroundColor === nextProps.style.backgroundColor
+// }
 
-export default React.memo(FlaggedTile, areEqual)
+// export default React.memo(FlaggedTile, areEqual)
+export default FlaggedTile

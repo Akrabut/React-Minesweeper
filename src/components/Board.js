@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Tile from './Tile'
 import { makePlay, setFlag, removeFlag, initGame } from '../actions/gameState'
 import { supermanActions } from '../actions/superman'
+import { FixedSizeGrid as Grid } from 'react-window';
 
 const Board = props => {
   useEffect(() => {
@@ -26,6 +27,7 @@ const Board = props => {
 
   const handleFlag = (coord, value, flagged) => {
     if (flagged) return props.removeFlag(coord, value)
+    console.log(props.gameState.remainingFlags);
     if (props.gameState.remainingFlags === 0) return outOfFlags()
     props.setFlag(coord, value)
   }
@@ -43,12 +45,12 @@ const Board = props => {
     height: "100%",
     display: "grid",
     gridGap: "2px",
-    gridTemplateRows: `repeat(${props.gameState.rows}, 50px)`,
-    gridTemplateColumns: `repeat(${props.gameState.columns}, 50px)`,
+    gridTemplateRows: `repeat(${props.gameState.rows}, 40px)`,
+    gridTemplateColumns: `repeat(${props.gameState.columns}, 40px)`,
     overflow: 'auto',
   }
 
-  const generateTable = () => {
+  const generateGrid = () => {
     return props.gameState.board.map((row, i) => (
       // indexes can be used as keys here since array elements are never removed
       row.map((column, j) => (
@@ -67,10 +69,35 @@ const Board = props => {
     )
   }
 
+  // const grid = generateGrid()
+  const Cell = ({ columnIndex, rowIndex, style }) => (
+    <Tile x={rowIndex} y={columnIndex} key={`${rowIndex},${columnIndex}`}
+      value={props.gameState.board[rowIndex][columnIndex]}
+      isFlagged={props.gameState.setFlags.has(JSON.stringify([rowIndex, columnIndex]))}
+      isRevealed={props.gameState.revealedTiles.has(JSON.stringify([rowIndex, columnIndex]))}
+      superman={props.superman}
+      makePlay={handlePlay}
+      setFlag={handleFlag}
+      endGame={endGame}
+    />
+  );
+
+  // return (
+  //   <section className='board' style={sectionStyle}>
+  //     {generateGrid()}
+  //   </section>
+  // )
   return (
-    <section className='board' style={sectionStyle}>
-      {generateTable()}
-    </section>
+  <Grid 
+    columnCount={props.gameState.columns}
+    rowCount={props.gameState.rows}
+    style={sectionStyle}
+      height={25}
+      width={25}
+      columnWidth={40}
+      rowHeight={40}>
+      {Cell}
+  </Grid>
   )
 }
 

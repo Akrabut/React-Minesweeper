@@ -7,9 +7,9 @@ const SupermanMineTile = ({ style, handleClick }) => (
   </Card>
 )
 
-const areEqual = (prevProps, nextProps) => {
-  // return JSON.stringify(prevProps.style) === JSON.stringify(nextProps.style)
-  return prevProps.style.backgroundColor === nextProps.style.backgroundColor
-}
+// const areEqual = (prevProps, nextProps) => {
+//   return prevProps.style.backgroundColor === nextProps.style.backgroundColor
+// }
 
-export default React.memo(SupermanMineTile, areEqual)
+// export default React.memo(SupermanMineTile, areEqual)
+export default SupermanMineTile
