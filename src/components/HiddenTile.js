@@ -2,13 +2,17 @@ import React from 'react'
 import { Card } from 'semantic-ui-react'
 
 const HiddenTile = ({ style, handleClick }) => (
-  <Card className='hidden-tile' raised style={style} onClick={handleClick}>
+  // <Card className='hidden-tile' raised style={style} onClick={handleClick}>
+  //   {'?'}
+  // </Card>
+  <div className='hidden-tile' raised style={style} onClick={handleClick}>
     {'?'}
-  </Card>
+  </div>
 )
 
 const areEqual = (prevProps, nextProps) => {
-  return prevProps.style === nextProps.style
+  // console.log(prevProps.style.backgroundColor === nextProps.style.backgroundColor);
+  return prevProps.style.backgroundColor === nextProps.style.backgroundColor
 }
 
 export default React.memo(HiddenTile, areEqual)

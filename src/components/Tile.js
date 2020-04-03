@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Icon, Card } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react'
 import RevealedTile from './RevealedTile'
 import FlaggedTile from './FlaggedTile'
 import SupermanMineTile from './SupermanMineTile'
@@ -62,41 +62,26 @@ const Tile = ({ x, y, value, isFlagged, isRevealed, superman, makePlay, setFlag,
 
   if (revealed) {
     return (
-      // <div style={setStyle()}>
-      //   {displayProperValue()}
-      // </div>
       <RevealedTile value={displayProperValue()} style={setStyle()}/>
     )
   } else if (flagged) {
     return (
-      // <Card className='flagged-tile' raised style={hiddenStyle} onClick={handleClick}>
-      //   <Icon fitted={true} name='font awesome flag' />
-      // </Card>
       <FlaggedTile style={hiddenStyle} handleClick={handleClick} />
     )
   } else if (value === 'M' && superman) {
     return (
-      // <Card className='superman-tile' raised style={hiddenStyle} onClick={handleClick}>
-      //   <Icon fitted={true} name='exclamation' color='red' />
-      // </Card>
       <SupermanMineTile style={hiddenStyle} handleClick={handleClick} />
     )
   } else {
     return (
       <HiddenTile style={{ ...hiddenStyle, color: 'grey' }} handleClick={handleClick} />
-      // {/* <Card className='hidden-tile' raised style={{ ...hiddenStyle, color: 'grey' }} onClick={handleClick}>
-      //   {'?'}
-      // </Card> */}
-      // <div className='hidden-tile' style={{ ...hiddenStyle, color: 'grey' }} onClick={handleLeftClick}>
-      //   {'?'}
-      // </div>
     )
   }
 }
 
-// const areEqual = (prevProps, nextProps) => {
-//   return prevProps.isRevealed === nextProps.isRevealed && prevProps.isFlagged === nextProps.isFlagged
-// }
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.isRevealed === nextProps.isRevealed && prevProps.isFlagged === nextProps.isFlagged && prevProps.superman === nextProps.superman
+}
 
-// export default React.memo(Tile, areEqual)
-export default Tile
+export default React.memo(Tile, areEqual)
+// export default Tile

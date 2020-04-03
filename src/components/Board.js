@@ -43,8 +43,8 @@ const Board = props => {
     height: "100%",
     display: "grid",
     gridGap: "2px",
-    gridTemplateRows: `repeat(${props.gameState.rows}, 1fr)`,
-    gridTemplateColumns: `repeat(${props.gameState.columns}, 1fr)`,
+    gridTemplateRows: `repeat(${props.gameState.rows}, 50px)`,
+    gridTemplateColumns: `repeat(${props.gameState.columns}, 50px)`,
     overflow: 'auto',
   }
 

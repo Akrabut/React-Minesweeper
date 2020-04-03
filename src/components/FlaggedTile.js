@@ -8,7 +8,7 @@ const FlaggedTile = ({ style, handleClick }) => (
 )
 
 const areEqual = (prevProps, nextProps) => {
-  return prevProps.style === nextProps.style
+  return prevProps.style.backgroundColor === nextProps.style.backgroundColor
 }
 
 export default React.memo(FlaggedTile, areEqual)
