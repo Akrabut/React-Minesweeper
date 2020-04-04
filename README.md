@@ -1,68 +1,55 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# A Minesweeper game written in React
 
-## Available Scripts
+## How to play
 
-In the project directory, you can run:
+Click on the tiles and try not to get exploded.
 
-### `npm start`
+### Controls
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Buttons
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+* Left click - reveal a tile
+* Shift + left click (unflagged tile) - flag a tile
+* Shift + left click (flagged tile) - unflag a tile
 
-### `npm test`
+#### Options
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Press the Options button at the top to view the options bar.
+The bar allows to:
 
-### `npm run build`
+1. Activate Superman Mode™ that shows the location of mines on the board.
+2. Restart the game with the current or new row, column and mine inputs (supports a board of up to 300x300).
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Rules
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Click on tiles to reveal them.
+Flag all mines to win, click on a mine to lose and be exploded back to the start.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Start in development mode
 
-### `npm run eject`
+1. Clone the repo
+2. `npm i`
+3. `npm start`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Run the tests
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This project includes unit tests for the helper methods, some basic integration tests for the rendering of
+components and end to end tests written in incredible Cypress.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Unit and integration tests
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+run `npm test`.
 
-## Learn More
+### End to end tests
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. `npm start` (note - the tests expect the app to run on localhost:3000)
+2. `npm run cypress:open`
+3. click on "Run all specs".
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Technical challenges
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+The app should be responsive and work somewhat well on mobile devices as well.
+Supporting a 100x100+ board that looks remotely decent in a SPA on the browser proved to be problematic as even the initial rendering
+of  the board could take ages.
+Using `React.memo` introduced more problems that performance improvements so I used `react-window` to solve it when it comes to bigger boards.
+The app seems to perform well with any given size with the use of virtual scrolling, although UX is not ideal.

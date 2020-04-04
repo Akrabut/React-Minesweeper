@@ -54,7 +54,7 @@ const NewGameForm = props => {
     <Menu.Item style={colorTheme}>
     {/* while it makes sense to move the remaining flags paragraph to another component (or at least not this one), it will require
     the other component to be connected just for a single paragraph element which makes no sense */}
-      <p style={{ fontWeight: 'bold' }}>New game</p>
+      <p style={{ fontWeight: 'bolder', color: '#21ba45' }}>New game</p>
       <Form className='new-game-form'>
         <Form.Field>
           <label style={themeInherit}>Rows</label>
