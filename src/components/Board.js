@@ -97,7 +97,7 @@ const Board = (props) => {
     </Grid>
   )
 }
-// window.document.body.clientWidth / 1.9 > 300 ? window.document.body.clientWidth / 1.9 : 300
+
 const mapDispatchToProps = {
   makePlay,
   setFlag,

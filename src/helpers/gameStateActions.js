@@ -9,6 +9,7 @@ export const revealAdjacentEmptyTiles = (clickedTile, board, setFlags) => {
   const stack = [clickedTile]
   while (stack.length > 0) {
     const current = stack.pop()
+    // stringify because [] !== []
     if (visited.has(JSON.stringify(current))) continue
     visited.add(JSON.stringify(current))
     const i = current[0]
@@ -16,10 +17,12 @@ export const revealAdjacentEmptyTiles = (clickedTile, board, setFlags) => {
     visited.add(JSON.stringify(current))
     // flagged tiles should be ignored even if they are not mines
     if (setFlags.has(JSON.stringify(current))) continue
+    // if neighbor is empty, push onto stack to reveal all of it's adjacent cells
     if (isValidCoord(current, board) && board[i][j] === 'E') {
       newReveals.push(current)
       const potentialCoords = [[i - 1, j - 1], [i - 1, j], [i, j - 1], [i + 1, j], [i, j + 1], [i + 1, j + 1]]
       potentialCoords.forEach(coord => stack.push(coord))
+    // if neighbor is a number, reveal only it
     } else if (isValidCoord(current, board) && Number.isInteger(board[i][j])) {
       newReveals.push(current)
     }

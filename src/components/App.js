@@ -1,14 +1,15 @@
-import React from "react";
-import Board from "./Board";
-import OptionsBar from "./OptionsBar";
-import "../css/style.css";
+import React from "react"
+import Board from "./Board"
+import OptionsBar from "./OptionsBar"
+import "../css/grid-style.css"
+
 const style = {
   textAlign: "center",
   width: "80%",
   marginLeft: "auto",
   marginRight: "auto",
-};
-// TODO: TESTS, PERFORMANCE
+}
+
 function App() {
   return (
     <main style={style}>
@@ -18,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
