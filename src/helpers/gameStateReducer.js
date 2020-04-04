@@ -18,7 +18,7 @@ const placeMines = (board, numOfMines) => {
     // make sure players' browser never freezes
     if (i > board.length * board[0].length * 1000000) {
       alert('An extremely uncommon stastical issue occured') 
-      throw Error
+      throw new Error()
     }
     i++
   }
