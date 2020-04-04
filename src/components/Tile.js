@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Icon } from "semantic-ui-react";
-import RevealedTile from "./RevealedTile";
-import FlaggedTile from "./FlaggedTile";
-import SupermanMineTile from "./SupermanMineTile";
-import HiddenTile from "./HiddenTile";
+import React, { useState, useEffect } from "react"
+import { Icon } from "semantic-ui-react"
+import RevealedTile from "./RevealedTile"
+import FlaggedTile from "./FlaggedTile"
+import SupermanMineTile from "./SupermanMineTile"
+import HiddenTile from "./HiddenTile"
 
 const Tile = ({
   x,
@@ -43,7 +43,7 @@ const Tile = ({
   }
 
   const hiddenStyle = {
-    backgroundColor: "grey",
+    backgroundColor: "#B0B0B0",
     color: "black",
     margin: 0,
     height: '100%'

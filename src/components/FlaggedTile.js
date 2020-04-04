@@ -3,7 +3,7 @@ import { Icon, Card } from 'semantic-ui-react'
 
 const FlaggedTile = ({ style, handleClick }) => (
   <Card className='flagged-tile' raised style={style} onClick={handleClick}>
-    <Icon size='large' fitted={true} name='font awesome flag' />
+    <Icon size='large' fitted={true} color='green' name='font awesome flag' />
   </Card>
 )
 

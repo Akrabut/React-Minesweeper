@@ -1,7 +1,7 @@
 import React from 'react'
 
 const RevealedTile = ({ style, value }) => (
-  <div className='revealed-tile' style={style}>
+  <div className='revealed-tile' style={{ ...style, fontSize: '150%' }}>
     {value}
   </div>
 )

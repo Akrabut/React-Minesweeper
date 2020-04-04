@@ -24,6 +24,13 @@ const NewGameForm = props => {
     setMines(props.gameState.numOfMines)
   }, [props.gameState.numOfMines])
 
+  useEffect(() => {
+    const remainingFlags = new Map()
+    remainingFlags.set('flags', props.gameState.remainingFlags)
+    props.setFlagMap(remainingFlags)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.gameState.remainingFlags])
+
   const handleChange = (e, setter) => {
     if ((e.target.value <= 300)) setter(e.target.value)
   }
@@ -47,7 +54,6 @@ const NewGameForm = props => {
     <Menu.Item style={colorTheme}>
     {/* while it makes sense to move the remaining flags paragraph to another component (or at least not this one), it will require
     the other component to be connected just for a single paragraph element which makes no sense */}
-      <p className='remaining-flags' style={{ fontWeight: 'bold', color: '#21ba45' }}>{`Remaining flags: ${props.gameState.remainingFlags}`}</p>
       <p style={{ fontWeight: 'bold' }}>New game</p>
       <Form className='new-game-form'>
         <Form.Field>

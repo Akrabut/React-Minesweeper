@@ -47,7 +47,7 @@ const fillBoard = board => {
   }
 }
 
-const DEFAULT = 100
+const DEFAULT = 20
 
 export const calcNumOfMines = (rows, cols) => Math.floor((rows * cols) / 8)
 

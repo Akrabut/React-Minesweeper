@@ -1,6 +1,6 @@
 import React from "react";
 import Board from "./Board";
-import Sidenavbar from "./Sidenavbar";
+import OptionsBar from "./OptionsBar";
 import "../css/style.css";
 const style = {
   textAlign: "center",
@@ -12,7 +12,7 @@ const style = {
 function App() {
   return (
     <main style={style}>
-      <Sidenavbar />
+      <OptionsBar />
       <Board />
     </main>
   );
