@@ -58,18 +58,18 @@ const NewGameForm = props => {
       <Form className='new-game-form'>
         <Form.Field>
           <label style={themeInherit}>Rows</label>
-          <input placeholder='5-300' value={rows} onChange={e => handleChange(e, setRows) } />
+          <input id='row-input' placeholder='5-300' value={rows} onChange={e => handleChange(e, setRows) } />
         </Form.Field>
         <Form.Field>
           <label style={themeInherit}>Columns</label>
-          <input placeholder='5-300' value={columns} onChange={e => handleChange(e, setColumns) } />
+          <input id='column-input' placeholder='5-300' value={columns} onChange={e => handleChange(e, setColumns) } />
         </Form.Field>
         <Form.Field>
           <label style={themeInherit}>Mines</label>
-          <input placeholder='5-300' value={mines} onChange={handleMineChange} />
+          <input id='mine-input' placeholder='5-300' value={mines} onChange={handleMineChange} />
         </Form.Field>
       </Form>
-      <Button type='submit' onClick={handleClick} icon labelPosition='right' style={{ backgroundColor: 'GhostWhite', color: 'black', marginTop: '1.5em' }}>
+      <Button id='restart-button' type='submit' onClick={handleClick} icon labelPosition='right' style={{ backgroundColor: 'GhostWhite', color: 'black', marginTop: '1.5em' }}>
         Restart
         <Icon name='game' />
       </Button>
