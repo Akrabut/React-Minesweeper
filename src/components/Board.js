@@ -38,13 +38,11 @@ const Board = (props) => {
 
   const handleFlag = (coord, value, flagged) => {
     if (flagged) return props.removeFlag(coord, value)
-    console.log(props.gameState.remainingFlags)
     if (props.gameState.remainingFlags === 0) return outOfFlags()
     props.setFlag(coord, value)
   }
 
   const endGame = (setRevealed) => {
-    debugger
     alert("You have been exploded!")
     // use setrevealed to flip the tile back after the game restarts
     setRevealed(false)

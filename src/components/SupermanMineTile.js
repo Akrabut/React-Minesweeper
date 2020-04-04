@@ -3,7 +3,7 @@ import { Icon, Card } from 'semantic-ui-react'
 
 const SupermanMineTile = ({ style, handleClick }) => (
   <Card className='superman-tile' raised style={style} onClick={handleClick}>
-    <Icon size='large' fitted={true} name='exclamation' color='red' />
+    <Icon style={{ lineHeight: '40px' }} size='large' fitted={true} name='exclamation' color='red' />
   </Card>
 )
 
