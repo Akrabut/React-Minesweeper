@@ -54,11 +54,14 @@ const Tile = ({
     if (flagged && !e.shiftKey) return;
     // tile is shift+left clickable if its hidden or flagged (flag or unflag)
     if (e.shiftKey) return setFlag([x, y], value, flagged)
+    // setRevealed is async and endGame() is sync, so in case user clicked on a mine,
+    // the tile has to be revealed and endGame() has to be promisified, otherwise the clicked mine wont be shown
     setRevealed(true)
-    // pass setrevealed to flip the tile back after the game restarts
-    // game is over if clicked tile is a mine
-    if (value === "M") return endGame(setRevealed)
-    // its a normal turn if none of the above occurs
+    if (value === "M") {
+      setTimeout(() => {
+        return endGame()
+      }, 0)
+    }
     makePlay([x, y], value)
   }
 

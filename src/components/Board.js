@@ -23,11 +23,6 @@ const Board = (props) => {
 
   const outOfFlags = () => {
     alert("Hmm... seems like we are out of flags")
-    // return (
-    // <Modal open={true}>
-    //   <p>"Hmm... seems like we are out of flags"</p>
-    // </Modal>
-    // )
   }
 
   const gameWon = () => {
@@ -42,10 +37,8 @@ const Board = (props) => {
     props.setFlag(coord, value)
   }
 
-  const endGame = (setRevealed) => {
+  const endGame = () => {
     alert("You have been exploded!")
-    // use setrevealed to flip the tile back after the game restarts
-    setRevealed(false)
     props.supermanActions(false)
     props.initGame(props.gameState.rows, props.gameState.columns)
   }
