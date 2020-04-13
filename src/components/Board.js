@@ -4,7 +4,6 @@ import Tile from "./Tile"
 import { makePlay, setFlag, removeFlag, initGame } from "../actions/gameState"
 import { supermanActions } from "../actions/superman"
 import { FixedSizeGrid as Grid } from "react-window"
-// import { Modal } from 'semantic-ui-react'
 
 const Board = (props) => {
   useEffect(() => {

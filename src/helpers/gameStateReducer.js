@@ -27,7 +27,7 @@ const placeMines = (board, numOfMines) => {
 
 const countSurroundingMines = (board, i, j) => {
   let surrMines = 0
-  const potentialCoords = [[i - 1, j - 1], [i - 1, j], [i, j - 1], [i + 1, j], [i, j + 1], [i + 1, j + 1]]
+  const potentialCoords = [[i - 1, j - 1], [i - 1, j], [i, j - 1], [i + 1, j], [i, j + 1], [i + 1, j + 1], [i - 1, j + 1], [i + 1, j - 1]]
   potentialCoords.forEach(potentialMine => {
     if (board[potentialMine[0]] && board[potentialMine[0]][potentialMine[1]] && board[potentialMine[0]][potentialMine[1]] === 'M') surrMines++
   })
